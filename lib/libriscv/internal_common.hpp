@@ -6,17 +6,17 @@
 #endif
 
 #ifdef __GNUG__
-#define RISCV_NOINLINE __attribute__((noinline))
-#define RISCV_UNREACHABLE() __builtin_unreachable()
-#define RISCV_EXPORT __attribute__((visibility("default")))
+#  define RISCV_NOINLINE __attribute__((noinline))
+#  define RISCV_UNREACHABLE() __builtin_unreachable()
+#  define RISCV_EXPORT __attribute__((visibility("default")))
+#elif defined(_MSC_VER)
+#  define RISCV_NOINLINE __declspec(noinline)
+#  define RISCV_UNREACHABLE()  /* */
+#  define RISCV_EXPORT __declspec(dllexport)
 #else
-#define RISCV_NOINLINE    /* */
-#define RISCV_UNREACHABLE()  /* */
-#  ifdef _MSC_VER
-#    define RISCV_EXPORT __declspec(dllexport)
-#  else
-#    define RISCV_EXPORT      /* */
-#  endif
+#  define RISCV_NOINLINE    /* */
+#  define RISCV_UNREACHABLE()  /* */
+#  define RISCV_EXPORT      /* */
 #endif
 
 #ifdef RISCV_32I
